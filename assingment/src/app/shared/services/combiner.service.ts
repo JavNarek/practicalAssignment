@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { ReplaySubject } from 'rxjs';
 import { forkJoin } from 'rxjs/internal/observable/forkJoin';
 import { User, Post, CombinedData } from '../models/users.model';
 import { UsersService } from './users.service';
@@ -8,9 +8,7 @@ import { UsersService } from './users.service';
   providedIn: 'root'
 })
 export class CombinerService {
-
-
-  private combinedData = new Subject <CombinedData[]> ()
+  private combinedData = new ReplaySubject <CombinedData[]> ()
   combinedDataSubject = this.combinedData.asObservable()
   
   constructor(
