@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CombinerService } from 'src/app/shared/services/combiner.service';
 
 @Component({
   selector: 'app-users-list',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UsersListComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private combinerService: CombinerService
+  ) { }
 
   ngOnInit(): void {
+    this.combinerService.getCombinedData()
   }
 
 }
