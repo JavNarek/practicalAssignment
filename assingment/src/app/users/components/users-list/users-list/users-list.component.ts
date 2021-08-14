@@ -13,7 +13,6 @@ export class UsersListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.combinerService.getCombinedData()
   }
 
 }

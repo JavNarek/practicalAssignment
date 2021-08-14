@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { forkJoin } from 'rxjs/internal/observable/forkJoin';
 import { User, Post, CombinedData } from '../models/users.model';
 import { UsersService } from './users.service';
@@ -10,14 +10,14 @@ import { UsersService } from './users.service';
 export class CombinerService {
 
 
-  private combinedData = new BehaviorSubject<CombinedData[]>([])
+  private combinedData = new Subject <CombinedData[]> ()
   combinedDataSubject = this.combinedData.asObservable()
   
   constructor(
     private userService: UsersService
   ) { }
 
-  combineData(sourceData:User[], injectData:Post[]){
+  private combineData(sourceData:User[], injectData:Post[]){
     const groupedData = injectData.reduce<any>((acc, item)=>{
       if(acc[item.userId]?.length){
         acc[item.userId].push(item)

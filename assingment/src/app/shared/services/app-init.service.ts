@@ -1,23 +1,26 @@
 import { Injectable }  from '@angular/core';
+import { CombinerService } from './combiner.service';
  
 @Injectable()
 export class AppInitService {
  
-    constructor() {
+    constructor(
+      private combinerService: CombinerService
+    ) {
+      this.combinerService.getCombinedData()
     }
     
-    Init() {
- 
-        return new Promise<void>((resolve, reject) => {
-            console.log("AppInitService.init() called");
-            ////do your initialisation stuff here  
-
-            
-            setTimeout(() => {
-                console.log('AppInitService Finished');
-                resolve();
-            }, 6000);
- 
-        });
+    init() {
+      return new Promise<void>((resolve, reject) => {
+        this.combinerService.combinedDataSubject
+        .subscribe(
+          () =>{
+            resolve()
+          },
+          ()=>{
+            reject()
+          }
+        )
+      });
     }
 }
