@@ -20,8 +20,7 @@ export class CombinerService {
       if(acc[item.userId]?.length){
         acc[item.userId].push(item)
       }else{
-        acc[item.userId]= []
-        acc[item.userId].push(item)
+        acc[item.userId] = [item]
       }
       return acc
     },{})

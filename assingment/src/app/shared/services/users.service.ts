@@ -17,7 +17,7 @@ export class UsersService {
 
   getUserList(): Observable<User[]> {
     const url = `assets/users.json`
-    return this.httpClient.get<User[]>(url).pipe(delay(500)) // Slow response imitation
+    return this.httpClient.get<User[]>(url).pipe(delay(5000)) // Slow response imitation
   }
 
   getPostList(): Observable<Post[]> {
