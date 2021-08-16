@@ -13,11 +13,11 @@ export class UsersService {
   constructor(
     private httpClient: HttpClient
   ) { }
-  
+
 
   getUserList(): Observable<User[]> {
     const url = `assets/users.json`
-    return this.httpClient.get<User[]>(url).pipe(delay(5000)) // Slow response imitation
+    return this.httpClient.get<User[]>(url).pipe(delay(5000)) // Slow late response imitation
   }
 
   getPostList(): Observable<Post[]> {

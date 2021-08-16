@@ -1,1 +1,28 @@
 /* You can add global styles to this file, and also import other style files */
+.wrapper {
+  width: 100%;
+  height: 100vh;
+  background-color: lightgray;
+}
+
+.loader {
+  position: absolute;
+  border: 1px solid #f3f3f3; /* Light grey */
+  border-top: 50px solid #3498db; /* Blue */
+  border-bottom: 50px solid #3498db; /* Blue */
+  border-radius: 50%;
+  left: 48%;
+  top: 50%;
+  width: 80px;
+  height: 80px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+body {
+  margin: 0;
+}

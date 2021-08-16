@@ -10,7 +10,7 @@ import { UsersService } from './users.service';
 export class CombinerService {
   private combinedData = new ReplaySubject <CombinedData[]> ()
   combinedDataSubject = this.combinedData.asObservable()
-  
+
   constructor(
     private userService: UsersService
   ) { }
@@ -24,7 +24,7 @@ export class CombinerService {
       }
       return acc
     },{})
-    
+
     return sourceData.map(item=>{
       return {...item, posts:groupedData[item.id] ? groupedData[item.id]:[]}
     })
@@ -37,6 +37,8 @@ export class CombinerService {
         posts: this.userService.getPostList()
       }
     ).subscribe(data=>{
+      // console.log(data);
+
       const {users, posts} = data
       this.combinedData.next(this.combineData(users, posts))
     })
