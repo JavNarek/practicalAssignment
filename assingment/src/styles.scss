@@ -1,4 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
+
+
+body {
+  margin: 0;
+  background: #ecf0f3;
+}
+
 .wrapper {
   width: 100%;
   height: 100vh;
@@ -12,7 +19,7 @@
   border-bottom: 50px solid #3498db; /* Blue */
   border-radius: 50%;
   left: 48%;
-  top: 50%;
+  top: 40%;
   width: 80px;
   height: 80px;
   animation: spin 2s linear infinite;
@@ -23,6 +30,19 @@
   100% { transform: rotate(360deg); }
 }
 
-body {
-  margin: 0;
+button {
+  background-color: #3498db; /* Blue */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 5px 10px;
+  cursor: pointer;
+}
+
+.group-button{
+  text-align: center;
 }
