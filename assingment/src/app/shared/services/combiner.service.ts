@@ -5,42 +5,39 @@ import { User, Post, CombinedData } from '../models/users.model';
 import { UsersService } from './users.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CombinerService {
-  private combinedData = new ReplaySubject <CombinedData[]> ()
-  combinedDataSubject = this.combinedData.asObservable()
+  private combinedData = new ReplaySubject<CombinedData[]>();
+  combinedDataSubject = this.combinedData.asObservable();
 
-  constructor(
-    private userService: UsersService
-  ) { }
+  constructor(private userService: UsersService) {}
 
-  private combineData(sourceData:User[], injectData:Post[]){
-    const groupedData = injectData.reduce<any>((acc, item)=>{
-      if(acc[item.userId]?.length){
-        acc[item.userId].push(item)
-      }else{
-        acc[item.userId] = [item]
+  private combineData(sourceData: User[], injectData: Post[]) {
+    const groupedData = injectData.reduce<any>((acc, item) => {
+      if (acc[item.userId]?.length) {
+        acc[item.userId].push(item);
+      } else {
+        acc[item.userId] = [item];
       }
-      return acc
-    },{})
+      return acc;
+    }, {});
 
-    return sourceData.map(item=>{
-      return {...item, posts:groupedData[item.id] ? groupedData[item.id]:[]}
-    })
+    return sourceData.map((item) => {
+      return {
+        ...item,
+        posts: groupedData[item.id] ? groupedData[item.id] : [],
+      };
+    });
   }
 
-  getCombinedData(){
-   forkJoin(
-      {
-        users: this.userService.getUserList(),
-        posts: this.userService.getPostList()
-      }
-    ).subscribe(data=>{
-      // console.log(data);
-
-      const {users, posts} = data
-      this.combinedData.next(this.combineData(users, posts))
-    })
+  getCombinedData() {
+    forkJoin({
+      users: this.userService.getUserList(),
+      posts: this.userService.getPostList(),
+    }).subscribe((data) => {
+      const { users, posts } = data;
+      this.combinedData.next(this.combineData(users, posts));
+    });
   }
 }

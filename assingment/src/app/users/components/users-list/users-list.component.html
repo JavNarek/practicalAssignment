@@ -1,19 +1,21 @@
 <table class="products-table">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Adress</th>
-        <th>Phone</th>
-
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let user of users; "  (dblclick)="click(user)">
-        <td>{{user.name}}</td>
-        <td>{{user?.email}}</td>
-        <td>{{user?.address?.city}}, {{user?.address?.street}}, {{user?.address?.zipcode}}</td>
-        <td>{{user?.phone}}</td>
-      </tr>
-    </tbody>
-  </table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Adress</th>
+      <th>Phone</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of users" (dblclick)="click(user)">
+      <td>{{ user.name }}</td>
+      <td>{{ user?.email }}</td>
+      <td>
+        {{ user?.address?.city }}, {{ user?.address?.street }},
+        {{ user?.address?.zipcode }}
+      </td>
+      <td>{{ user?.phone }}</td>
+    </tr>
+  </tbody>
+</table>

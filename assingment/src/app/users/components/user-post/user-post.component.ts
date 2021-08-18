@@ -13,62 +13,55 @@ import { DownloadService } from 'src/app/shared/services/download.service';
   selector: 'app-user-post',
   templateUrl: './user-post.component.html',
   styleUrls: ['./user-post.component.scss'],
-  encapsulation:ViewEncapsulation.None,
-  providers: [DownloadService]
+  encapsulation: ViewEncapsulation.None,
+  providers: [DownloadService],
 })
-export class UserPostComponent extends BaseComponentDirective implements OnInit {
-  user:CombinedData | undefined
-test:any
+export class UserPostComponent
+  extends BaseComponentDirective
+  implements OnInit
+{
+  user: CombinedData | undefined;
+
   constructor(
     private route: ActivatedRoute,
     private combinerService: CombinerService,
-    private downloadService:DownloadService,
+    private downloadService: DownloadService,
     private viewportScroller: ViewportScroller
   ) {
-    super()
-
+    super();
   }
 
   ngOnInit(): void {
-    combineLatest(
-      [
-        this.getParam(),
-        this.getUsers()
-      ]
-    )
-    .pipe(takeUntil(this.ngUnsubscribe))
-    .subscribe(val=>{
-      this.getUserFromCombinedData(val[1],val[0])
-    })
-
+    combineLatest([this.getParam(), this.getUsers()])
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe((val) => {
+        this.getUserFromCombinedData(val[1], val[0]);
+      });
   }
 
-
-  getUserFromCombinedData(data:CombinedData[], param: Params){
-    const {id} = param
-    this.user = data.find(item => item.id === +id)
+  getUserFromCombinedData(data: CombinedData[], param: Params) {
+    const { id } = param;
+    this.user = data.find((item) => item.id === +id);
   }
 
-
-  getParam(): Observable<Params>{
-    return this.route.params
+  getParam(): Observable<Params> {
+    return this.route.params;
   }
 
-  getUsers():Observable<CombinedData[]>{
-    return this.combinerService.combinedDataSubject
+  getUsers(): Observable<CombinedData[]> {
+    return this.combinerService.combinedDataSubject;
   }
 
-
-  downloadAsCSV(){
-    const headers = ['title', 'body']
-    this.downloadService.downloadFile(this.user?.posts, headers, 'jsontocsv')
+  downloadAsCSV() {
+    const headers = ['title', 'body'];
+    this.downloadService.downloadFile(this.user?.posts, headers, 'jsontocsv');
   }
 
   onClick(elementId: string): void {
     this.viewportScroller.scrollToAnchor(elementId);
   }
 
-  downloadAsSVG(){
-    this.downloadService.downloadPNG('export','crop')
+  downloadAsPNG() {
+    this.downloadService.downloadPNG('export', 'crop');
   }
 }

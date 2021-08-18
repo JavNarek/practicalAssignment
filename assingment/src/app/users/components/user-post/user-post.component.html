@@ -1,36 +1,31 @@
+<div id="crop">
+  <div class="post-wrapper">
+    <div class="img-area">
+      <div class="inner-area">
+        <img
+          src="https://images.unsplash.com/photo-1484186139897-d5fc6b908812?ixlib=rb-0.3.5&s=9358d797b2e1370884aa51b0ab94f706&auto=format&fit=crop&w=200&q=80%20500w"
+          alt=""
+        />
+      </div>
+    </div>
+    <div class="name">{{ user?.name }}</div>
+    <div class="about">{{ user?.username }}</div>
+    <div class="phone">{{ user?.phone }}</div>
 
-<div id='crop'>
-<div class="post-wrapper">
-  <div class="img-area">
-    <div class="inner-area">
-      <img src="https://images.unsplash.com/photo-1484186139897-d5fc6b908812?ixlib=rb-0.3.5&s=9358d797b2e1370884aa51b0ab94f706&auto=format&fit=crop&w=200&q=80%20500w" alt="">
+    <div (click)="onClick('posts')" class="posts">
+      {{ user?.posts?.length }} posts
     </div>
   </div>
-  <div class="name">{{user?.name}}</div>
-  <div class="about">{{user?.username}}</div>
-  <div class="phone">{{user?.phone}}</div>
 
-  <div (click)="onClick('posts')" class="posts">
-    {{user?.posts?.length}} posts
+  <div id="posts" *ngFor="let post of user?.posts" class="article-wrapper">
+    <article>
+      <h5>{{ post?.title }}</h5>
+      <p>{{ post?.body }}</p>
+    </article>
   </div>
-
-</div>
-
-<div id="posts" *ngFor="let post of user?.posts" class="article-wrapper">
-  <article>
-    <h5>{{post?.title}}</h5>
-    <p>{{post?.body}}</p>
-  </article>
-</div>
 </div>
 
 <div class="group-button">
-  <button
-  (click)= "downloadAsCSV()"
-  > Download as .csv</button>
-  <button
-  (click)= "downloadAsSVG()"
-  > Download as .svg </button>
+  <button (click)="downloadAsCSV()">Download as .csv</button>
+  <button (click)="downloadAsPNG()">Download as .svg</button>
 </div>
-
-

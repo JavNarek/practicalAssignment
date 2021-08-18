@@ -8,34 +8,34 @@ import { CombinerService } from 'src/app/shared/services/combiner.service';
 @Component({
   selector: 'app-users-list',
   templateUrl: './users-list.component.html',
-  styleUrls: ['./users-list.component.scss']
+  styleUrls: ['./users-list.component.scss'],
 })
-export class UsersListComponent extends BaseComponentDirective implements OnInit {
-
-  users:CombinedData[] = []
+export class UsersListComponent
+  extends BaseComponentDirective
+  implements OnInit
+{
+  users: CombinedData[] = [];
 
   constructor(
     private combinerService: CombinerService,
     private router: Router,
     private route: ActivatedRoute
   ) {
-    super()
-   }
+    super();
+  }
 
   ngOnInit(): void {
     this.combinerService.combinedDataSubject
-    .pipe( takeUntil(this.ngUnsubscribe))
-    .subscribe(data=>{
-      this.users = data
-    })
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe((data) => {
+        this.users = data;
+      });
   }
 
-  click(user: CombinedData){
-    const {id} = user
+  click(user: CombinedData) {
+    const { id } = user;
     if (id) {
-      this.router.navigate([id], { relativeTo: this.route })
+      this.router.navigate([id], { relativeTo: this.route });
     }
   }
-
-
 }
