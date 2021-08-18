@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class DownloadService {
   constructor() {}
+  style = '';
 
   downloadFile(data: any, headers: string[], filename = 'data') {
     let csvData = this.ConvertToCSV(data, headers);
@@ -57,14 +58,20 @@ export class DownloadService {
     const ctx = canvas.getContext('2d');
     const tempImg = document.createElement('img');
     tempImg.addEventListener('load', onTempImageLoad);
-    const style = `${document.querySelectorAll('style')[3].innerHTML}`;
+    document
+      .getElementsByTagName('head')[0]
+      .querySelectorAll('style')
+      .forEach((elem) => {
+        this.style += elem.innerHTML;
+      });
+
     const element = document.getElementById(elementId) as HTMLElement;
     const html = new XMLSerializer().serializeToString(element);
     const { offsetWidth, offsetHeight } = element;
     canvas.width = offsetWidth;
     canvas.height = offsetHeight;
 
-    const replacedStyle = style.replace(/\n/g, '');
+    const replacedStyle = this.style.replace(/\n/g, '');
     const svgString = this.getSVGString(
       offsetWidth,
       offsetHeight,
